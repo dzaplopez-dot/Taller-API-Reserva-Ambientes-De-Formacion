@@ -1,4 +1,4 @@
-package com.agendasena.agendasena.controller;
+package com.agendasena.agendasena.controllers;
 
 import com.agendasena.agendasena.dto.AmbienteDTO;
 import com.agendasena.agendasena.dto.ReservaDTO;
