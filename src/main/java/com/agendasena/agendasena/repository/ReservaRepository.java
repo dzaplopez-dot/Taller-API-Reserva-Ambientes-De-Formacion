@@ -6,6 +6,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
+
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -33,14 +34,14 @@ public interface ReservaRepository extends JpaRepository<Reserva, Long> {
 
         @Query("SELECT COUNT(r) FROM Reserva r WHERE r.instructorNombre = :instructor " +
                         "AND r.estado = 'ACTIVA' " +
-                        "AND DATE(r.fechaInicio) = DATE(:fecha)")
+                        "AND CAST(r.fechaInicio AS DATE) = CAST(:fecha AS DATE)")
         Long countReservasActivasPorInstructorYFecha(
                         @Param("instructor") String instructor,
                         @Param("fecha") LocalDateTime fecha);
 
         @Query("SELECT r FROM Reserva r WHERE r.ambiente.id = :ambienteId " +
                         "AND r.estado = 'ACTIVA' " +
-                        "AND DATE(r.fechaInicio) = DATE(:fecha)")
+                        "AND CAST(r.fechaInicio AS DATE) = CAST(:fecha AS DATE)")
         List<Reserva> findReservasActivasPorAmbienteYFecha(
                         @Param("ambienteId") Long ambienteId,
                         @Param("fecha") LocalDateTime fecha);
