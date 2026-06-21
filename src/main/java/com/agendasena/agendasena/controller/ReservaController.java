@@ -15,18 +15,13 @@ public class ReservaController {
 
     private final ReservaService reservaService;
 
-    // =============================================
-    // POST /api/reservas - Crear una reserva
-    // =============================================
     @PostMapping
     public ResponseEntity<ReservaDTO> crearReserva(@RequestBody CrearReservaRequest request) {
         ReservaDTO nuevaReserva = reservaService.crearReserva(request);
         return new ResponseEntity<>(nuevaReserva, HttpStatus.CREATED);
     }
 
-    // =============================================
-    // PATCH /api/reservas/{id}/cancelar - Cancelar reserva
-    // =============================================
+    
     @PatchMapping("/{id}/cancelar")
     public ResponseEntity<ReservaDTO> cancelarReserva(@PathVariable Long id) {
         ReservaDTO reservaCancelada = reservaService.cancelarReserva(id);
