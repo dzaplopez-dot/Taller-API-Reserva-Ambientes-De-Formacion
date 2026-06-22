@@ -2,6 +2,9 @@ package com.agendasena.agendasena.service;
 
 import com.agendasena.agendasena.dto.CrearReservaRequest;
 import com.agendasena.agendasena.dto.ReservaDTO;
+import com.agendasena.agendasena.exception.ConflictoReservaException;
+import com.agendasena.agendasena.exception.RecursoNoEncontradoException;
+import com.agendasena.agendasena.exception.ReglaNegocioException;
 import com.agendasena.agendasena.model.Ambiente;
 import com.agendasena.agendasena.model.EstadoReserva;
 import com.agendasena.agendasena.model.Reserva;
@@ -31,47 +34,57 @@ public class ReservaService {
 
         // REGLA 4: Ambiente debe estar activo
         if (!ambiente.getActivo()) {
-            throw new RuntimeException("El ambiente no está activo.");
+            throw new ReglaNegocioException("El ambiente no está activo.");
         }
 
         // REGLA 2: Capacidad suficiente
         if (request.getNumeroAprendices() > ambiente.getCapacidad()) {
-            throw new RuntimeException("Capacidad insuficiente.");
+            throw new ReglaNegocioException(
+                    "La capacidad del ambiente es de " + ambiente.getCapacidad() +
+                            " personas. No puede reservar para " + request.getNumeroAprendices() + " aprendices.");
         }
 
         // REGLA 7: No reservar en pasado
         if (request.getFechaInicio().isBefore(LocalDateTime.now())) {
-            throw new RuntimeException("No se puede reservar en pasado.");
+            throw new ReglaNegocioException("No se puede reservar en pasado.");
         }
 
-        // REGLA 3: Horario entre 6:00 y 22:00
+        // Obtener las horas de inicio y fin
         LocalTime inicio = request.getFechaInicio().toLocalTime();
         LocalTime fin = request.getFechaFin().toLocalTime();
+
+        // REGLA 3: Horario entre 6:00 y 22:00
         if (inicio.isBefore(LocalTime.of(6, 0)) || fin.isAfter(LocalTime.of(22, 0))) {
-            throw new RuntimeException("Horario debe estar entre 6:00 y 22:00.");
+            throw new ReglaNegocioException("Horario debe estar entre 6:00 y 22:00.");
         }
+
+        // Calcular duración en horas
+        long horas = Duration.between(request.getFechaInicio(), request.getFechaFin()).toHours();
 
         // REGLA 3: Duración entre 1 y 4 horas
-        long horas = Duration.between(request.getFechaInicio(), request.getFechaFin()).toHours();
         if (horas < 1 || horas > 4) {
-            throw new RuntimeException("La reserva debe durar entre 1 y 4 horas.");
+            throw new ReglaNegocioException("La reserva debe durar entre 1 y 4 horas.");
         }
 
-        // REGLA 1: Sin cruces de horario
+        // REGLA 1: Sin cruces de horario (buscar reservas solapadas)
         List<Reserva> solapadas = reservaRepository.findReservasActivasSolapadas(
                 ambiente.getId(),
                 request.getFechaInicio(),
                 request.getFechaFin());
+
         if (!solapadas.isEmpty()) {
-            throw new RuntimeException("El ambiente ya está reservado en ese horario.");
+            throw new ConflictoReservaException("El ambiente ya está reservado en ese horario.");
         }
 
         // REGLA 5: Máximo 3 reservas activas por instructor en el día
         Long reservasHoy = reservaRepository.countReservasActivasPorInstructorYFecha(
                 request.getInstructorNombre(),
                 request.getFechaInicio());
+
         if (reservasHoy >= 3) {
-            throw new RuntimeException("El instructor ya tiene 3 reservas hoy.");
+            throw new ConflictoReservaException(
+                    "El instructor " + request.getInstructorNombre() +
+                            " ya tiene 3 reservas activas hoy. No puede crear más.");
         }
 
         // Crear y guardar la reserva
@@ -90,16 +103,14 @@ public class ReservaService {
     @Transactional
     public ReservaDTO cancelarReserva(Long id) {
         Reserva reserva = reservaRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Reserva no encontrada"));
+                .orElseThrow(() -> new RecursoNoEncontradoException("Reserva no encontrada"));
 
-        // Solo se puede cancelar si está activa
         if (reserva.getEstado() != EstadoReserva.ACTIVA) {
-            throw new RuntimeException("Solo se pueden cancelar reservas activas.");
+            throw new ConflictoReservaException("Solo se pueden cancelar reservas activas.");
         }
 
-        // Validar anticipación mínima de 2 horas
         if (LocalDateTime.now().plusHours(2).isAfter(reserva.getFechaInicio())) {
-            throw new RuntimeException("Debe haber al menos 2 horas de anticipación para cancelar.");
+            throw new ConflictoReservaException("Debe haber al menos 2 horas de anticipación para cancelar.");
         }
 
         reserva.setEstado(EstadoReserva.CANCELADA);

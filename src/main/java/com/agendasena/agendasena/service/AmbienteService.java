@@ -1,6 +1,7 @@
 package com.agendasena.agendasena.service;
 
 import com.agendasena.agendasena.dto.AmbienteDTO;
+import com.agendasena.agendasena.exception.RecursoNoEncontradoException;
 import com.agendasena.agendasena.model.Ambiente;
 import com.agendasena.agendasena.model.TipoAmbiente;
 import com.agendasena.agendasena.repository.AmbienteRepository;
@@ -46,14 +47,14 @@ public class AmbienteService {
     }
 
     public Ambiente obtenerPorId(Long id) {
-        return ambienteRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Ambiente no encontrado con ID: " + id));
-    }
+    return ambienteRepository.findById(id)
+            .orElseThrow(() -> new RecursoNoEncontradoException("Ambiente no encontrado con ID: " + id));
+}
 
     public List<AmbienteDTO> listarAmbientesDisponibles(LocalDateTime inicio, LocalDateTime fin) {
         return ambienteRepository.findByActivoTrue().stream()
                 .filter(ambiente -> reservaRepository.findReservasActivasSolapadas(
-                        ambiente.getId(), inicio, fin).isEmpty()) // ← ¡Paréntesis cerrado!
+                        ambiente.getId(), inicio, fin).isEmpty()) 
                 .map(this::toDTO)
                 .toList();
     }

@@ -19,9 +19,9 @@ public class Ambiente {
     @Column(nullable = false, unique = true)
     private String nombre;
 
-    @Enumerated(EnumType.STRING)  
+    @Enumerated(EnumType.STRING)
     @Column(nullable = false)
-    private TipoAmbiente tipo;    
+    private TipoAmbiente tipo;
 
     @Column(nullable = false)
     private Integer capacidad;

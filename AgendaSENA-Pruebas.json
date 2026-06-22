@@ -1,0 +1,699 @@
+{
+  "info": {
+    "_postman_id": "8fbdb627-3d65-4de8-b8f8-9918bc72491c",
+    "name": "AgendaSENA - Pruebas API",
+    "description": "```\nColección de pruebas para la API de Reserva de Ambientes de Formación.\n\n ```",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "54729596"
+  },
+  "item": [
+    {
+      "name": "Crear Sala 101",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json",
+            "type": "text"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n    \"nombre\": \"Sala 101\",\n    \"tipo\": \"SALA\",\n    \"capacidad\": 30\n}   ",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://localhost:8080/api/ambientes",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8080",
+          "path": [
+            "api",
+            "ambientes"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Crear Laboratorio de Redes",
+      "request": {
+        "auth": {
+          "type": "noauth"
+        },
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json",
+            "type": "text"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n    \"nombre\": \"Laboratorio de Redes\",\n    \"tipo\": \"LABORATORIO\",\n    \"capacidad\": 20\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://localhost:8080/api/ambientes",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8080",
+          "path": [
+            "api",
+            "ambientes"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Crear Auditorio Principal",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json",
+            "type": "text"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n    \"nombre\": \"Auditorio Principal\",\n    \"tipo\": \"AUDITORIO\",\n    \"capacidad\": 100\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://localhost:8080/api/ambientes",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8080",
+          "path": [
+            "api",
+            "ambientes"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Crear Reserva (Juan Pérez 8-10)",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json",
+            "type": "text"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n    \"ambienteId\": 1,\n    \"instructorNombre\": \"Juan Pérez\",\n    \"fechaInicio\": \"2026-06-25T08:00:00\",\n    \"fechaFin\": \"2026-06-25T10:00:00\",\n    \"numeroAprendices\": 20\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://localhost:8080/api/reservas",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8080",
+          "path": [
+            "api",
+            "reservas"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Listar ambientes",
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json",
+            "type": "text",
+            "disabled": true
+          }
+        ],
+        "url": {
+          "raw": "http://localhost:8080/api/ambientes",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8080",
+          "path": [
+            "api",
+            "ambientes"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Crear Reserva (Maria Gomez) e inactivo",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json",
+            "type": "text"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n    \"ambienteId\": 1,\n    \"instructorNombre\": \"María Gómez\",\n    \"fechaInicio\": \"2026-06-25T10:00:00\",\n    \"fechaFin\": \"2026-06-25T12:00:00\",\n    \"numeroAprendices\": 15\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://localhost:8080/api/reservas",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8080",
+          "path": [
+            "api",
+            "reservas"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Solapamiento Regla_1",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json",
+            "type": "text"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n    \"ambienteId\": 1,\n    \"instructorNombre\": \"Pedro López\",\n    \"fechaInicio\": \"2026-06-25T09:00:00\",\n    \"fechaFin\": \"2026-06-25T11:00:00\",\n    \"numeroAprendices\": 15\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://localhost:8080/api/reservas",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8080",
+          "path": [
+            "api",
+            "reservas"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Capacidad Insuficiente  Regla_2",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json",
+            "type": "text"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n    \"ambienteId\": 1,\n    \"instructorNombre\": \"Ana Martínez\",\n    \"fechaInicio\": \"2026-06-25T16:00:00\",\n    \"fechaFin\": \"2026-06-25T18:00:00\",\n    \"numeroAprendices\": 50\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://localhost:8080/api/reservas",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8080",
+          "path": [
+            "api",
+            "reservas"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Horario 5AM Regla_3",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json",
+            "type": "text"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n    \"ambienteId\": 1,\n    \"instructorNombre\": \"Carlos Ruiz\",\n    \"fechaInicio\": \"2026-06-25T05:00:00\",\n    \"fechaFin\": \"2026-06-25T07:00:00\",\n    \"numeroAprendices\": 15\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://localhost:8080/api/reservas",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8080",
+          "path": [
+            "api",
+            "reservas"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Duración 5h Regla_3",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json",
+            "type": "text"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n    \"ambienteId\": 1,\n    \"instructorNombre\": \"Laura Sánchez\",\n    \"fechaInicio\": \"2026-06-25T08:00:00\",\n    \"fechaFin\": \"2026-06-25T13:00:00\",\n    \"numeroAprendices\": 15\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://localhost:8080/api/reservas",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8080",
+          "path": [
+            "api",
+            "reservas"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Reserva 1 (Juan Pérez 10:00 - 12:00)",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json",
+            "type": "text"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n    \"ambienteId\": 1,\n    \"instructorNombre\": \"Juan Pérez\",\n    \"fechaInicio\": \"2026-06-25T10:00:00\",\n    \"fechaFin\": \"2026-06-25T12:00:00\",\n    \"numeroAprendices\": 15\n}"
+        },
+        "url": {
+          "raw": "http://localhost:8080/api/reservas",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8080",
+          "path": [
+            "api",
+            "reservas"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Reserva 2 (Juan Pérez 12:00 - 14:00)",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json",
+            "type": "text"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n    \"ambienteId\": 1,\n    \"instructorNombre\": \"Juan Pérez\",\n    \"fechaInicio\": \"2026-06-25T12:00:00\",\n    \"fechaFin\": \"2026-06-25T14:00:00\",\n    \"numeroAprendices\": 15\n}"
+        },
+        "url": {
+          "raw": "http://localhost:8080/api/reservas",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8080",
+          "path": [
+            "api",
+            "reservas"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Reserva 3 (Juan Pérez 14:00 - 16:00)",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json",
+            "type": "text"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n    \"ambienteId\": 1,\n    \"instructorNombre\": \"Juan Pérez\",\n    \"fechaInicio\": \"2026-06-25T14:00:00\",\n    \"fechaFin\": \"2026-06-25T16:00:00\",\n    \"numeroAprendices\": 15\n}"
+        },
+        "url": {
+          "raw": "http://localhost:8080/api/reservas",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8080",
+          "path": [
+            "api",
+            "reservas"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Límite Instructor Juan Pérez Regla_5",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json",
+            "type": "text"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n    \"ambienteId\": 1,\n    \"instructorNombre\": \"Juan Pérez\",\n    \"fechaInicio\": \"2026-06-25T08:00:00\",\n    \"fechaFin\": \"2026-06-25T10:00:00\",\n    \"numeroAprendices\": 15\n}"
+        },
+        "url": {
+          "raw": "http://localhost:8080/api/reservas",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8080",
+          "path": [
+            "api",
+            "reservas"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Crear Reserva Para Cancelar Maria Gomez",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json",
+            "type": "text"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n    \"ambienteId\": 2,  \n    \"instructorNombre\": \"María Gómez\",\n    \"fechaInicio\": \"2026-06-25T08:00:00\",\n    \"fechaFin\": \"2026-06-25T10:00:00\",\n    \"numeroAprendices\": 15\n}"
+        },
+        "url": {
+          "raw": "http://localhost:8080/api/reservas",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8080",
+          "path": [
+            "api",
+            "reservas"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Reserva cancelada Maria Gomez",
+      "request": {
+        "method": "PATCH",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:8080/api/reservas/4/cancelar",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8080",
+          "path": [
+            "api",
+            "reservas",
+            "4",
+            "cancelar"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Ambientes disponibles",
+      "protocolProfileBehavior": {
+        "disableBodyPruning": true
+      },
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json",
+            "type": "text",
+            "disabled": true
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": ""
+        },
+        "url": {
+          "raw": "http://localhost:8080/api/ambientes/disponibles?inicio=2026-06-25T13:00:00&fin=2026-06-25T15:00:00",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8080",
+          "path": [
+            "api",
+            "ambientes",
+            "disponibles"
+          ],
+          "query": [
+            {
+              "key": "inicio",
+              "value": "2026-06-25T13:00:00"
+            },
+            {
+              "key": "fin",
+              "value": "2026-06-25T15:00:00"
+            }
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Reservar Fechas Pasadas Regla_7",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json",
+            "type": "text"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n    \"ambienteId\": 1,\n    \"instructorNombre\": \"Test Pasado\",\n    \"fechaInicio\": \"2025-01-01T08:00:00\",\n    \"fechaFin\": \"2025-01-01T10:00:00\",\n    \"numeroAprendices\": 10\n}"
+        },
+        "url": {
+          "raw": "http://localhost:8080/api/reservas",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8080",
+          "path": [
+            "api",
+            "reservas"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Crear una reserva para dentro de 1 hora (7:49 PM)",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json",
+            "type": "text"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n    \"ambienteId\": 1,\n    \"instructorNombre\": \"Carlos Ruiz\",\n    \"fechaInicio\": \"2026-06-21T20:11:00\",\n    \"fechaFin\": \"2026-06-21T22:00:00\",\n    \"numeroAprendices\": 10\n}"
+        },
+        "url": {
+          "raw": "http://localhost:8080/api/reservas",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8080",
+          "path": [
+            "api",
+            "reservas"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Cancelar sin 2h Anticipación Regla_6",
+      "request": {
+        "method": "PATCH",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:8080/api/reservas/4/cancelar",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8080",
+          "path": [
+            "api",
+            "reservas",
+            "4",
+            "cancelar"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Cancelar Reserva Cancelada Anteriormente",
+      "request": {
+        "method": "PATCH",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:8080/api/reservas/4/cancelar",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8080",
+          "path": [
+            "api",
+            "reservas",
+            "4",
+            "cancelar"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Cancelar Reserva Inexistente",
+      "request": {
+        "method": "PATCH",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:8080/api/reservas/999/cancelar",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8080",
+          "path": [
+            "api",
+            "reservas",
+            "999",
+            "cancelar"
+          ]
+        }
+      },
+      "response": []
+    }
+  ]
+}
